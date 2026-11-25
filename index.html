@@ -1,75 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daredevil — The Man Without Fear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Oswald for English, Cairo for Arabic -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <script src="js/translations.js" defer></script>
   <script src="js/external.js" defer></script>
 </head>
 <body>
 
+  <!--
+    Language switching: elements with data-i18n="key" get their text from js/translations.js.
+    data-i18n-html  → text that contains markup (like <br>)
+    data-i18n-aria  → aria-label
+    data-i18n-alt   → alt text
+  -->
+
   <!-- ---------- Navbar ---------- -->
   <header class="navbar">
-    <nav class="navbar__pill glass" aria-label="Main navigation">
-      <a href="#home" class="navbar__link is-active">Home</a>
-      <a href="#about" class="navbar__link">About</a>
+    <nav class="navbar__pill glass" aria-label="Main navigation" data-i18n-aria="nav.mainLabel">
+      <a href="#home" class="navbar__link is-active" data-i18n="nav.home">Home</a>
+      <a href="#about" class="navbar__link" data-i18n="nav.about">About</a>
 
-      <a class="navbar__logo" href="#home" aria-label="Daredevil — back to top">
-        <img src="assets/images/Logo.png" alt="Daredevil helmet logo">
+      <a class="navbar__logo" href="#home" aria-label="Daredevil — back to top" data-i18n-aria="nav.logoLabel">
+        <img src="assets/images/Logo.png" alt="Daredevil helmet logo" data-i18n-alt="nav.logoAlt">
       </a>
 
-      <a href="#story" class="navbar__link">Story</a>
-      <a href="#contact" class="navbar__link">Contact</a>
+      <a href="#story" class="navbar__link" data-i18n="nav.story">Story</a>
+      <a href="#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
     </nav>
 
-        <div class="navbar__actions">
+    <div class="navbar__actions">
       <button class="navbar__music glass" type="button" aria-pressed="false" aria-label="Play music">
         <span class="navbar__music-bars" aria-hidden="true">
           <span></span><span></span><span></span><span></span>
         </span>
       </button>
 
-      <div class="navbar__lang glass" role="group" aria-label="Language">
+      <div class="navbar__lang glass" role="group" aria-label="Language" data-i18n-aria="nav.languageLabel">
         <button class="navbar__lang-btn is-active" type="button" data-lang="en" aria-pressed="true">EN</button>
         <button class="navbar__lang-btn" type="button" data-lang="ar" aria-pressed="false">AR</button>
       </div>
     </div>
   </header>
 
+  <!-- Background music -->
   <audio class="music" src="assets/audio/intro.mp3" loop preload="none"></audio>
 
-    <!-- ---------- Hero / intro scroll sequence ---------- -->
+  <!-- ---------- Hero / intro scroll sequence ---------- -->
   <section class="hero" id="home">
     <div class="hero__stage">
 
-      <!-- Step 0: intro video (plays once) -->
-      <video class="hero__media" autoplay muted playsinline aria-label="Daredevil standing in red light as the Daredevil logo forms in front of him">
+
+      <video class="hero__media" autoplay muted playsinline aria-label="Daredevil standing in red light as the Daredevil logo forms in front of him" data-i18n-aria="hero.videoLabel">
         <source src="assets/videos/hero-intro-4k.mp4" type="video/mp4">
       </video>
 
-      <!-- Step 1: dark "iris" that closes in as you scroll -->
+
       <div class="hero__iris" aria-hidden="true"></div>
 
-      <!-- Step 0: scroll hint, shown after the video ends -->
+
       <div class="hero__hint" aria-hidden="true">
-        <span>Scroll</span>
+        <span data-i18n="hero.scroll">Scroll</span>
         <span class="hero__hint-line"></span>
       </div>
 
-      <!-- Step 2: text revealed word by word -->
+      <!-- text revealed word by word -->
       <div class="hero__lines">
-        <p class="hero__line">Matt Murdock lost his sight at nine years old.</p>
-        <p class="hero__line">But the accident took his eyes</p>
-        <p class="hero__line hero__line--accent">and gave him everything else.</p>
+        <p class="hero__line" data-i18n="hero.line1">Matt Murdock lost his sight at nine years old.</p>
+        <p class="hero__line" data-i18n="hero.line2">But the accident took his eyes…</p>
+        <p class="hero__line hero__line--accent" data-i18n="hero.line3">…and gave him everything else.</p>
       </div>
 
-            <!-- Step 3: radar pulse that reveals the city -->
+
       <div class="hero__city" aria-hidden="true">
-        <img src="assets/images/hell's-kitchen.jpg" alt="Hells Kitchen">
+        <img src="assets/images/hell's-kitchen3.jpg" alt="">
       </div>
 
       <div class="hero__radar" aria-hidden="true">
@@ -78,41 +89,40 @@
         <span class="hero__ring hero__ring--echo-far"></span>
       </div>
 
-            <!-- Step 4: location tag shown over the city -->
+
       <div class="hero__location">
         <span class="hero__location-pin" aria-hidden="true"></span>
         <div>
-          <p class="hero__location-name">Hell's Kitchen</p>
-          <p class="hero__location-coords">New York City  40.76 N, 73.99 W</p>
+          <p class="hero__location-name" data-i18n="hero.locationName">Hell's Kitchen</p>
+          <p class="hero__location-coords" data-i18n="hero.locationCoords">New York City · 40.76° N, 73.99° W</p>
         </div>
       </div>
 
     </div>
   </section>
 
-
-    <!-- ---------- About: two lives, one man ---------- -->
+  <!-- ---------- About: two lives, one man ---------- -->
   <section class="about" id="about">
     <div class="about__stage">
 
       <header class="about__header">
-        <p class="about__eyebrow">About</p>
-        <h2 class="about__title">Two lives. One man.</h2>
+        <p class="about__eyebrow" data-i18n="about.eyebrow">About</p>
+        <h2 class="about__title" data-i18n="about.title">Two lives. One man.</h2>
       </header>
 
       <!-- By day: Matt Murdock (bottom layer) -->
       <article class="about__side about__side--matt">
         <div class="about__photo">
-          <img src="assets/images/matt-murdock.jpg" alt="Matt Murdock in a suit and red glasses in a courtroom">
+          <img src="assets/images/matt-murdock.jpg" alt="Matt Murdock in a suit and red glasses in a courtroom" data-i18n-alt="about.mattAlt">
         </div>
         <div class="about__text">
-          <p class="about__kicker">By day</p>
-          <h3 class="about__name">Matt<br>Murdock</h3>
-          <p class="about__bio">Blinded in an accident as a boy, Matt grew up in Hell's Kitchen and became a defense attorney. He fights for the city one case at a time, from a small office at Nelson &amp; Murdock.</p>
+          <p class="about__kicker" data-i18n="about.mattKicker">By day</p>
+          <h3 class="about__name" data-i18n-html="about.mattName">Matt<br>Murdock</h3>
+          <p class="about__bio" data-i18n="about.mattBio">Blinded in an accident as a boy, Matt grew up in Hell's Kitchen and became a defense attorney. He fights for the city one case at a time, from a small office at Nelson Murdock.</p>
           <ul class="about__facts">
-            <li>Attorney at Law</li>
-            <li>Nelson & Murdock</li>
-            <li>Hell's Kitchen</li>
+            <li data-i18n="about.mattFact1">Attorney at Law</li>
+            <li data-i18n="about.mattFact2">Nelson Murdock</li>
+            <li data-i18n="about.mattFact3">Hell's Kitchen</li>
           </ul>
         </div>
       </article>
@@ -120,21 +130,21 @@
       <!-- By night: Daredevil (top layer, revealed by the red divider) -->
       <article class="about__side about__side--devil">
         <div class="about__text">
-          <p class="about__kicker">By night</p>
-          <h3 class="about__name">Dare-devil</h3>
-          <p class="about__bio">When the law fails, he puts on the mask. Guided by senses sharper than sight, the Devil of Hell's Kitchen protects the streets the courts can't reach.</p>
+          <p class="about__kicker" data-i18n="about.devilKicker">By night</p>
+          <h3 class="about__name" data-i18n="about.devilName">Dare-devil</h3>
+          <p class="about__bio" data-i18n="about.devilBio">When the law fails, he puts on the mask. Guided by senses sharper than sight, the Devil of Hell's Kitchen protects the streets the courts can't reach.</p>
           <ul class="about__facts">
-            <li>Vigilante</li>
-            <li>Radar Sense</li>
-            <li>The Man Without Fear</li>
+            <li data-i18n="about.devilFact1">Vigilante</li>
+            <li data-i18n="about.devilFact2">Radar Sense</li>
+            <li data-i18n="about.devilFact3">The Man Without Fear</li>
           </ul>
         </div>
         <div class="about__photo">
-          <img src="assets/images/daredevil-suit.jpg" alt="Daredevil in his red suit standing on a fire escape at night">
+          <img src="assets/images/daredevil-suit.jpg" alt="Daredevil in his red suit standing on a fire escape at night" data-i18n-alt="about.devilAlt">
         </div>
       </article>
 
-      <!-- red line that slides across as you scroll -->
+
       <div class="about__divider" aria-hidden="true">
         <img class="about__divider-logo" src="assets/images/Logo.png" alt="">
       </div>
@@ -142,85 +152,201 @@
     </div>
   </section>
 
+  <!-- ---------- 3D showcase: the mask (turns as you scroll) ---------- -->
+  <section class="showcase" id="mask" data-start-angle="-20" data-turn="360" data-pitch="80deg" data-distance="105%">
+    <div class="showcase__stage">
 
 
+      <p class="showcase__backdrop" aria-hidden="true" data-i18n="mask.backdrop">The Man Without Fear</p>
 
-    <!-- ---------- Story: origin comic strip ---------- -->
+      <header class="showcase__header">
+        <p class="showcase__eyebrow" data-i18n="mask.eyebrow">The mask</p>
+        <h2 class="showcase__title" data-i18n-html="mask.title">Hell's Kitchen's<br>Devil</h2>
+        <p class="showcase__intro" data-i18n="showcase.intro">Scroll to turn it. Drag to look closer.</p>
+      </header>
+
+      <model-viewer
+        class="showcase__model"
+        src="assets/models/daredevil-mask.glb"
+        alt="3D model of Daredevil's red mask with horns"
+        data-i18n-alt="mask.alt"
+        camera-controls
+        disable-zoom
+        disable-pan
+        interaction-prompt="none"
+        camera-orbit="-20deg 80deg 105%"
+        field-of-view="30deg"
+        exposure="1.1"
+        shadow-intensity="1"
+        environment-image="neutral"
+        interpolation-decay="120">
+      </model-viewer>
+
+      <!-- callouts -->
+      <ul class="showcase__callouts">
+        <li class="showcase__callout showcase__callout--left" data-start="0.05" data-end="0.27">
+          <span class="showcase__callout-number">01</span>
+          <h3 data-i18n="mask.callout1Title">The red lenses</h3>
+          <p data-i18n="mask.callout1Text">Matt doesn't need them to see. They hide the eyes of the blind lawyer underneath.</p>
+        </li>
+        <li class="showcase__callout showcase__callout--right" data-start="0.3" data-end="0.52">
+          <span class="showcase__callout-number">02</span>
+          <h3 data-i18n="mask.callout2Title">The horns</h3>
+          <p data-i18n="mask.callout2Text">A warning to criminals: the Devil of Hell's Kitchen is watching.</p>
+        </li>
+        <li class="showcase__callout showcase__callout--left" data-start="0.56" data-end="0.8">
+          <span class="showcase__callout-number">03</span>
+          <h3 data-i18n="mask.callout3Title">Built to take a hit</h3>
+          <p data-i18n="mask.callout3Text">Armoured by Melvin Potter to keep him standing through every fight.</p>
+        </li>
+      </ul>
+
+      <div class="showcase__progress" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <!-- ---------- 3D showcase: the billy club ---------- -->
+  <section class="showcase" id="baton" data-start-angle="30" data-turn="360" data-pitch="70deg" data-distance="75%">
+    <div class="showcase__stage">
+
+      <p class="showcase__backdrop" aria-hidden="true" data-i18n="baton.backdrop">Justice Is Blind</p>
+
+      <header class="showcase__header">
+        <p class="showcase__eyebrow" data-i18n="baton.eyebrow">The weapon</p>
+        <h2 class="showcase__title" data-i18n-html="baton.title">The Billy<br>Club</h2>
+        <p class="showcase__intro" data-i18n="showcase.intro">Scroll to turn it. Drag to look closer.</p>
+      </header>
+
+      <model-viewer
+        class="showcase__model"
+        src="assets/models/daredevil-baton.glb"
+        alt="3D model of Daredevil's red billy club"
+        data-i18n-alt="baton.alt"
+        camera-controls
+        disable-zoom
+        disable-pan
+        interaction-prompt="none"
+        camera-orbit="30deg 70deg 75%"
+        field-of-view="9deg"
+        exposure="1.1"
+        shadow-intensity="1"
+        environment-image="neutral"
+        interpolation-decay="120">
+      </model-viewer>
+
+      <ul class="showcase__callouts">
+        <li class="showcase__callout showcase__callout--left" data-start="0.05" data-end="0.32">
+          <span class="showcase__callout-number">01</span>
+          <h3 data-i18n="baton.callout1Title">Two in one</h3>
+          <p data-i18n="baton.callout1Text">The club splits into two batons for fast, close-range fighting.</p>
+        </li>
+        <li class="showcase__callout showcase__callout--right" data-start="0.36" data-end="0.63">
+          <span class="showcase__callout-number">02</span>
+          <h3 data-i18n="baton.callout2Title">A line inside</h3>
+          <p data-i18n="baton.callout2Text">A hidden cable lets him swing between the rooftops of Hell's Kitchen.</p>
+        </li>
+        <li class="showcase__callout showcase__callout--left" data-start="0.67" data-end="0.94">
+          <span class="showcase__callout-number">03</span>
+          <h3 data-i18n="baton.callout3Title">Hidden in plain sight</h3>
+          <p data-i18n="baton.callout3Text">In the comics, it doubles as the white cane of a blind lawyer.</p>
+        </li>
+      </ul>
+
+      <div class="showcase__progress" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <!-- ---------- Story: comic strip ---------- -->
   <section class="comic" id="story">
     <div class="comic__stage">
 
       <header class="comic__header">
-        <p class="comic__eyebrow">Story</p>
-        <h2 class="comic__title">How the devil was born</h2>
+        <p class="comic__eyebrow" data-i18n="comic.eyebrow">Story</p>
+        <h2 class="comic__title" data-i18n="comic.title">How the devil was born</h2>
       </header>
 
       <!-- panels slide sideways as you scroll down -->
-            <!-- panels slide sideways as you scroll down -->
       <div class="comic__track">
 
         <figure class="comic__panel">
-          <img src="assets/images/1.jpg" alt="Young Matt Murdock pushes a blind man out of the path of a speeding truck carrying radioactive materials">
+          <img src="assets/images/1.jpg" alt="Young Matt Murdock pushes a blind man out of the path of a speeding truck carrying radioactive materials" data-i18n-alt="comic.panel1Alt">
           <figcaption class="comic__caption">
-            <span class="comic__caption-title">01-The accident</span>
-            Young Matt saves a blind man from a speeding truck, but a radioactive cylinder takes his sight.
+            <span class="comic__caption-title" data-i18n="comic.panel1Title">01 — The accident</span>
+            <span data-i18n="comic.panel1Text">Young Matt saves a blind man from a speeding truck, but a radioactive cylinder takes his sight.</span>
           </figcaption>
         </figure>
 
         <figure class="comic__panel comic__panel--tall">
-          <img src="assets/images/2.jpg" alt="Blindfolded young Matt learning to feel the air around him">
+          <img src="assets/images/2.jpg" alt="Blindfolded young Matt learning to feel the air around him" data-i18n-alt="comic.panel2Alt">
           <figcaption class="comic__caption">
-            <span class="comic__caption-title">02-A world without sight</span>
-            Blind, Matt discovers his other senses have become extraordinary.
+            <span class="comic__caption-title" data-i18n="comic.panel2Title">02 — A world without sight</span>
+            <span data-i18n="comic.panel2Text">Blind, Matt discovers his other senses have become extraordinary.</span>
           </figcaption>
         </figure>
 
         <figure class="comic__panel comic__panel--wide">
-          <img src="assets/images/3.jpg" alt="Stick training young Matt with fighting sticks">
+          <img src="assets/images/3.jpg" alt="Stick training young Matt with fighting sticks" data-i18n-alt="comic.panel3Alt">
           <figcaption class="comic__caption">
-            <span class="comic__caption-title">03-The training</span>
-            A blind master named Stick teaches him to control his senses and to fight.
+            <span class="comic__caption-title" data-i18n="comic.panel3Title">03 — The training</span>
+            <span data-i18n="comic.panel3Text">A blind master named Stick teaches him to control his senses and to fight.</span>
           </figcaption>
         </figure>
 
         <figure class="comic__panel comic__panel--wide">
-          <img src="assets/images/4.jpg" alt="Young Matt kneeling over the body of his father">
+          <img src="assets/images/4.jpg" alt="Young Matt kneeling over the body of his father" data-i18n-alt="comic.panel4Alt">
           <figcaption class="comic__caption">
-            <span class="comic__caption-title">04-The loss</span>
-            His father is killed for refusing to throw a fight. Justice becomes personal.
+            <span class="comic__caption-title" data-i18n="comic.panel4Title">04 — The loss</span>
+            <span data-i18n="comic.panel4Text">His father is killed for refusing to throw a fight. Justice becomes personal.</span>
           </figcaption>
         </figure>
 
         <figure class="comic__panel comic__panel--tall">
-          <img src="assets/images/5.jpg" alt="Daredevil standing on a rooftop under the moon, surrounded by crows">
+          <img src="assets/images/5.jpg" alt="Daredevil standing on a rooftop under the moon, surrounded by crows" data-i18n-alt="comic.panel5Alt">
           <figcaption class="comic__caption">
-            <span class="comic__caption-title">05-The Devil of Hell's Kitchen</span>
-            Matt puts on the mask and stands guard over his city.
+            <span class="comic__caption-title" data-i18n="comic.panel5Title">05 — The Devil of Hell's Kitchen</span>
+            <span data-i18n="comic.panel5Text">Matt puts on the mask and stands guard over his city.</span>
           </figcaption>
         </figure>
 
       </div>
 
-      <!-- thin progress bar for the strip -->
+
       <div class="comic__progress" aria-hidden="true"><span></span></div>
     </div>
   </section>
 
 
-  <!-- ---------- Story highlights ---------- -->
   <section class="stories">
     <header class="stories__header">
-      <p class="stories__eyebrow">Story highlights</p>
-      <h2 class="stories__title">The essential Daredevil</h2>
-      <p class="stories__intro">Six comic arcs that made the Man Without Fear. Start anywhere.</p>
+      <p class="stories__eyebrow" data-i18n="stories.eyebrow">Story highlights</p>
+      <h2 class="stories__title" data-i18n="stories.title">The essential Daredevil</h2>
+      <p class="stories__intro" data-i18n="stories.intro">Five battles that defined the Man Without Fear. Pick one from the box.</p>
     </header>
 
 
-    <ul class="stories__grid"></ul>
+    <div class="shelf">
+      <div class="shelf__row"></div>
+      <div class="shelf__front">
+        <span class="shelf__label" data-i18n="shelf.label">Hell's Kitchen Comics · Back issues</span>
+        <span class="shelf__stamp">DD</span>
+      </div>
+    </div>
+
+
+    <div class="shelf__info" aria-live="polite">
+      <div class="shelf__text">
+        <p class="shelf__meta"></p>
+        <h3 class="shelf__name"></h3>
+        <p class="shelf__author"></p>
+        <p class="shelf__summary"></p>
+      </div>
+      <button class="shelf__button" type="button" data-i18n="shelf.button">View details</button>
+    </div>
   </section>
 
 
   <dialog class="story-modal" aria-labelledby="story-modal-title">
-    <button class="story-modal__close" type="button" aria-label="Close details">&times;</button>
+    <button class="story-modal__close" type="button" aria-label="Close details" data-i18n-aria="modal.close">&times;</button>
     <div class="story-modal__cover">
       <img src="" alt="">
     </div>
@@ -234,7 +360,132 @@
   </dialog>
 
 
+  <section class="contact" id="contact">
+    <header class="contact__header">
+      <p class="contact__eyebrow" data-i18n="contact.eyebrow">Contact</p>
+      <h2 class="contact__title" data-i18n-html="contact.title">Need a lawyer?<br><span>Or a devil?</span></h2>
+    </header>
 
+    <div class="contact__layout">
+
+      <form class="contact__form" novalidate>
+
+        <fieldset class="contact__modes">
+          <legend class="contact__label" data-i18n="contact.who">Who are you writing to?</legend>
+          <label class="contact__mode">
+            <input type="radio" name="mode" value="lawyer" checked>
+            <span data-i18n-html="contact.lawyerOption">Matt Murdock <small>Legal help</small></span>
+          </label>
+          <label class="contact__mode">
+            <input type="radio" name="mode" value="devil">
+            <span data-i18n-html="contact.devilOption">Daredevil <small>Anonymous tip</small></span>
+          </label>
+        </fieldset>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-name">Your name</label>
+          <input class="contact__input" id="contact-name" name="name" type="text" autocomplete="name">
+          <p class="contact__error" aria-live="polite"></p>
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-email" data-i18n="contact.email">Email</label>
+          <input class="contact__input" id="contact-email" name="email" type="email" autocomplete="email">
+          <p class="contact__error" aria-live="polite"></p>
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-message">Tell us about your case</label>
+          <textarea class="contact__input contact__input--area" id="contact-message" name="message" rows="5"></textarea>
+          <p class="contact__error" aria-live="polite"></p>
+        </div>
+
+        <button class="contact__submit" type="submit">Send to Nelson Murdock</button>
+        <p class="contact__success" role="status"></p>
+      </form>
+
+
+      <aside class="contact__card">
+        <p class="contact__card-eyebrow" data-i18n="contact.cardEyebrow">Attorneys at Law</p>
+        <h3 class="contact__card-title" data-i18n="contact.cardTitle">Nelson Murdock</h3>
+        <ul class="contact__details">
+          <li data-i18n-html="contact.office"><span>Office</span>Hell's Kitchen, New York City</li>
+          <li data-i18n-html="contact.hours"><span>Hours</span>Mon Fri, 9am 6pm</li>
+          <li data-i18n-html="contact.afterDark"><span>After dark</span>Someone is always listening.</li>
+        </ul>
+        <p class="contact__note" data-i18n="contact.note">This is a fan project. No real lawyers (or devils) will reply.</p>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ---------- Footer: ---------- -->
+  <footer class="footer">
+    <div class="footer__grid">
+
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/images/Logo.png" alt="Daredevil helmet logo" data-i18n-alt="nav.logoAlt">
+        <p class="footer__tagline" data-i18n="footer.tagline">The story of the Man Without Fear, told one scroll at a time.</p>
+
+        <ul class="footer__socials">
+          <li>
+            <a class="footer__social" href="https://www.instagram.com/marvel/" target="_blank" rel="noopener" aria-label="Marvel on Instagram" data-i18n-aria="footer.instagram">
+              <img src="assets/icons/ig.svg" alt="">
+            </a>
+          </li>
+          <li>
+            <a class="footer__social" href="https://x.com/Marvel" target="_blank" rel="noopener" aria-label="Marvel on X" data-i18n-aria="footer.x">
+              <img src="assets/icons/x.svg" alt="">
+            </a>
+          </li>
+          <li>
+            <a class="footer__social" href="https://www.youtube.com/@marvel" target="_blank" rel="noopener" aria-label="Marvel on YouTube" data-i18n-aria="footer.youtube">
+              <img src="assets/icons/yt.svg" alt="">
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav class="footer__column" aria-label="Footer navigation" data-i18n-aria="footer.navLabel">
+        <h3 class="footer__heading" data-i18n="footer.explore">Explore</h3>
+        <ul class="footer__list">
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#mask" data-i18n="mask.eyebrow">The mask</a></li>
+          <li><a href="#story" data-i18n="nav.story">Story</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__column">
+        <h3 class="footer__heading" data-i18n="footer.contact">Contact</h3>
+        <ul class="footer__list">
+          <li data-i18n="footer.address">Nelson Murdock, Hell's Kitchen, NYC</li>
+          <li><a href="mailto:hello@hellskitchen.example">hello@hellskitchen.example</a></li>
+          <li data-i18n="footer.hours">Mon Fri, 9am 6pm</li>
+        </ul>
+      </div>
+
+      <form class="footer__newsletter" novalidate>
+        <h3 class="footer__heading" data-i18n="footer.newsletterTitle">The Bulletin</h3>
+        <p class="footer__text" data-i18n="footer.newsletterText">One Daredevil story in your inbox every week.</p>
+        <div class="footer__signup">
+          <label class="footer__sr-only" for="newsletter-email" data-i18n="footer.emailLabel">Email address</label>
+          <input class="footer__input" id="newsletter-email" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+          <button class="footer__button" type="submit" data-i18n="footer.subscribe">Subscribe</button>
+        </div>
+        <p class="footer__message" aria-live="polite"></p>
+      </form>
+
+    </div>
+
+    <p class="footer__wordmark" aria-hidden="true">Daredevil</p>
+
+    <div class="footer__bottom">
+      <p data-i18n="footer.copyright"> 2026 Fan project for a web design class. Daredevil and all comic art belong to Marvel.</p>
+      <a class="footer__top" href="#home" data-i18n="footer.top">Back to top </a>
+    </div>
+  </footer>
 
 </body>
 </html>
