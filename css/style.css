@@ -293,7 +293,7 @@ body {
   --bright: 1;
   --iris: 45;
   --radar-r: 0px;
-  --city-zoom: 1.35;
+  --city-zoom: 1.2;
   --ring-opacity: 0;
   --city-opacity: 1;
   --city-blur: 0;
@@ -438,7 +438,7 @@ body {
   object-fit: cover;
   transform-origin: 50% 70%;
   transform: scale(var(--city-zoom));
-  filter: brightness(0.8)s contrat(1.15) saturate(0.7) blur(calc(var(--city-blur) * 1px));
+  filter: brightness(0.8)s contrast(1.15) saturate(0.7) blur(calc(var(--city-blur) * 1px));
   will-change: transform, filter;
 }
 
@@ -2142,4 +2142,51 @@ html[dir="rtl"] .comic__caption {
 html[dir="rtl"] input[type="email"] {
   direction: ltr;
   text-align: right;
+}
+
+
+
+
+
+
+@media (max-aspect-ratio: 1/1) {
+  .hero__media {
+    inset: auto;
+    top: 50%;
+    left: -20%;
+    width: 140%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-top: calc(-140vw * 9 / 32); /* minus half the video's height, to centre it */
+    transform-origin: 50% 35%; /* zoom towards Daredevil's head */
+    -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 80%, transparent);
+    mask-image: linear-gradient(transparent, #000 25%, #000 80%, transparent);
+  }
+
+  .hero__iris {
+    background: radial-gradient(
+      ellipse at 50% 44%,
+      transparent calc(var(--iris) * 1%),
+      rgba(0, 0, 0, 0.95) calc(var(--iris) * 1% + 45%)
+    );
+  }
+}
+
+
+@media (max-aspect-ratio: 1/1) {
+  .hero__city {
+    background: #000; /
+  }
+
+  .hero__city img {
+    position: absolute;
+    top: 50%;
+    left: -25%;
+    width: 150%;
+    height: auto; 
+    transform-origin: 50% 50%;
+    transform: translateY(-50%) scale(var(--city-zoom)); /* centre it vertically, then zoom */
+    -webkit-mask-image: linear-gradient(transparent, #000 20%, #000 80%, transparent);
+    mask-image: linear-gradient(transparent, #000 20%, #000 80%, transparent);
+  }
 }
