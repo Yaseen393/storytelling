@@ -294,7 +294,7 @@ body {
   --iris: 45;
   --radar-r: 0px;
   --city-zoom: 1.35;
-  --ring-opacity: 1;
+  --ring-opacity: 0;
   --city-opacity: 1;
   --city-blur: 0;
   --label: 0;

@@ -187,7 +187,9 @@ function renderRadar(progress) {
   const maxRadius = Math.hypot(window.innerWidth, window.innerHeight) / 2;
 
   hero.style.setProperty("--radar-r", `${t * maxRadius * 1.05}px`);
-  hero.style.setProperty("--ring-opacity", 1 - range(progress, 0.6, 0.68));
+  const ringsIn = range(progress, STEP_RADAR.start, STEP_RADAR.start + 0.02);
+  const ringsOut = range(progress, 0.6, 0.68);
+  hero.style.setProperty("--ring-opacity", ringsIn * (1 - ringsOut));
 
   // hide the intro video once the city covers the whole screen
   hero.style.setProperty("--video-opacity", 1 - range(progress, 0.6, 0.68));
