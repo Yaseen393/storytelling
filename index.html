@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daredevil — The Man Without Fear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/external.js" defer></script>
+</head>
+<body>
+
+  <!-- ---------- Navbar ---------- -->
+  <header class="navbar">
+    <nav class="navbar__pill glass" aria-label="Main navigation">
+      <a href="#home" class="navbar__link is-active">Home</a>
+      <a href="#about" class="navbar__link">About</a>
+
+      <a class="navbar__logo" href="#home" aria-label="Daredevil — back to top">
+        <img src="assets/images/Logo.png" alt="Daredevil helmet logo">
+      </a>
+
+      <a href="#story" class="navbar__link">Story</a>
+      <a href="#contact" class="navbar__link">Contact</a>
+    </nav>
+
+        <div class="navbar__actions">
+      <button class="navbar__music glass" type="button" aria-pressed="false" aria-label="Play music">
+        <span class="navbar__music-bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+      </button>
+
+      <div class="navbar__lang glass" role="group" aria-label="Language">
+        <button class="navbar__lang-btn is-active" type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button class="navbar__lang-btn" type="button" data-lang="ar" aria-pressed="false">AR</button>
+      </div>
+    </div>
+  </header>
+
+  <audio class="music" src="assets/audio/intro.mp3" loop preload="none"></audio>
+
+    <!-- ---------- Hero / intro scroll sequence ---------- -->
+  <section class="hero" id="home">
+    <div class="hero__stage">
+
+      <!-- Step 0: intro video (plays once) -->
+      <video class="hero__media" autoplay muted playsinline aria-label="Daredevil standing in red light as the Daredevil logo forms in front of him">
+        <source src="assets/videos/hero-intro-4k.mp4" type="video/mp4">
+      </video>
+
+      <!-- Step 1: dark "iris" that closes in as you scroll -->
+      <div class="hero__iris" aria-hidden="true"></div>
+
+      <!-- Step 0: scroll hint, shown after the video ends -->
+      <div class="hero__hint" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="hero__hint-line"></span>
+      </div>
+
+      <!-- Step 2: text revealed word by word -->
+      <div class="hero__lines">
+        <p class="hero__line">Matt Murdock lost his sight at nine years old.</p>
+        <p class="hero__line">But the accident took his eyes</p>
+        <p class="hero__line hero__line--accent">and gave him everything else.</p>
+      </div>
+
+            <!-- Step 3: radar pulse that reveals the city -->
+      <div class="hero__city" aria-hidden="true">
+        <img src="assets/images/hell's-kitchen.jpg" alt="Hells Kitchen">
+      </div>
+
+      <div class="hero__radar" aria-hidden="true">
+        <span class="hero__ring"></span>
+        <span class="hero__ring hero__ring--echo"></span>
+        <span class="hero__ring hero__ring--echo-far"></span>
+      </div>
+
+            <!-- Step 4: location tag shown over the city -->
+      <div class="hero__location">
+        <span class="hero__location-pin" aria-hidden="true"></span>
+        <div>
+          <p class="hero__location-name">Hell's Kitchen</p>
+          <p class="hero__location-coords">New York City  40.76 N, 73.99 W</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+    <!-- ---------- About: two lives, one man ---------- -->
+  <section class="about" id="about">
+    <div class="about__stage">
+
+      <header class="about__header">
+        <p class="about__eyebrow">About</p>
+        <h2 class="about__title">Two lives. One man.</h2>
+      </header>
+
+      <!-- By day: Matt Murdock (bottom layer) -->
+      <article class="about__side about__side--matt">
+        <div class="about__photo">
+          <img src="assets/images/matt-murdock.jpg" alt="Matt Murdock in a suit and red glasses in a courtroom">
+        </div>
+        <div class="about__text">
+          <p class="about__kicker">By day</p>
+          <h3 class="about__name">Matt<br>Murdock</h3>
+          <p class="about__bio">Blinded in an accident as a boy, Matt grew up in Hell's Kitchen and became a defense attorney. He fights for the city one case at a time, from a small office at Nelson &amp; Murdock.</p>
+          <ul class="about__facts">
+            <li>Attorney at Law</li>
+            <li>Nelson & Murdock</li>
+            <li>Hell's Kitchen</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- By night: Daredevil (top layer, revealed by the red divider) -->
+      <article class="about__side about__side--devil">
+        <div class="about__text">
+          <p class="about__kicker">By night</p>
+          <h3 class="about__name">Dare-devil</h3>
+          <p class="about__bio">When the law fails, he puts on the mask. Guided by senses sharper than sight, the Devil of Hell's Kitchen protects the streets the courts can't reach.</p>
+          <ul class="about__facts">
+            <li>Vigilante</li>
+            <li>Radar Sense</li>
+            <li>The Man Without Fear</li>
+          </ul>
+        </div>
+        <div class="about__photo">
+          <img src="assets/images/daredevil-suit.jpg" alt="Daredevil in his red suit standing on a fire escape at night">
+        </div>
+      </article>
+
+      <!-- red line that slides across as you scroll -->
+      <div class="about__divider" aria-hidden="true">
+        <img class="about__divider-logo" src="assets/images/Logo.png" alt="">
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

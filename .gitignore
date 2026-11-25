@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# editor and tool settings
+.vscode/
+.claude/
+
+# 3D models (not used on the site)
+*.glb
