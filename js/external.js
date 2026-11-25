@@ -232,6 +232,199 @@ function renderAbout() {
 }
 
 
+
+
+
+/* ---------- Story: origin comic strip ---------- */
+
+const comic = document.querySelector(".comic");
+const comicTrack = comic.querySelector(".comic__track");
+const comicPanels = comic.querySelectorAll(".comic__panel");
+
+// if a panel image is missing, remove it so the red halftone placeholder shows
+comic.querySelectorAll(".comic__panel img").forEach((img) => {
+  img.addEventListener("error", () => img.remove());
+  if (img.complete && img.naturalWidth === 0) img.remove(); // already failed before JS ran
+});
+
+function renderComic() {
+  const progress = getSectionProgress(comic);
+
+
+  const lastPanel = comicPanels[comicPanels.length - 1];
+  const maxShift = lastPanel.offsetLeft + lastPanel.offsetWidth / 2 - window.innerWidth / 2;
+  comic.style.setProperty("--track-x", `${-progress * maxShift}px`);
+  comic.style.setProperty("--strip-progress", progress);
+
+  // "ink in" each panel as it moves towards the middle of the screen
+  comicPanels.forEach((panel) => {
+    const box = panel.getBoundingClientRect();
+    const panelCenter = box.left + box.width / 2;
+    const distance = Math.abs(panelCenter - window.innerWidth / 2) / window.innerWidth;
+
+    panel.style.setProperty("--ink", clamp(1.4 - distance * 2.2));
+  });
+}
+
+
+/* ---------- Story highlights: cards from an array of objects ---------- */
+
+const stories = [
+  {
+    title: "The Man Without Fear",
+    author: "Frank Miller & John Romita Jr.",
+    year: 1993,
+    issues: "5 issues",
+    language: "English",
+    cover: "assets/images/stories/man-without-fear.jpg",
+    summary: "The definitive origin: a boxer's son, a blinding accident, and the making of a hero.",
+    synopsis:
+      "Young Matt Murdock grows up in Hell's Kitchen with his father, a fading boxer. After chemicals blind him and sharpen every other sense, a mysterious mentor called Stick trains him to fight. When his father is murdered for refusing to throw a fight, Matt's path toward the mask begins.",
+  },
+  {
+    title: "Born Again",
+    author: "Frank Miller & David Mazzucchelli",
+    year: 1986,
+    issues: "Daredevil #227–233",
+    language: "English",
+    cover: "assets/images/stories/born-again.jpg",
+    summary: "Kingpin learns who Daredevil is and sets out to destroy every part of Matt's life.",
+    synopsis:
+      "Matt's secret identity is sold for a fix and ends up with the Kingpin, who takes away his job, his home and his reputation one piece at a time. Pushed to the edge of madness, Matt has to rebuild himself from nothing. Widely seen as the greatest Daredevil story ever told.",
+  },
+  {
+    title: "Guardian Devil",
+    author: "Kevin Smith & Joe Quesada",
+    year: 1998,
+    issues: "Daredevil vol. 2 #1–8",
+    language: "English",
+    cover: "assets/images/stories/guardian-devil.jpg",
+    summary: "A baby who may be the Messiah — or the Antichrist — tests Matt's faith.",
+    synopsis:
+      "A teenage girl leaves a baby in Matt's care, claiming the child is the Messiah. Soon others insist it is the Antichrist, and Matt's Catholic faith is pushed to its limit as someone works quietly to tear his world apart.",
+  },
+  {
+    title: "Daredevil: Yellow",
+    author: "Jeph Loeb & Tim Sale",
+    year: 2001,
+    issues: "6 issues",
+    language: "English",
+    cover: "assets/images/stories/yellow.jpg",
+    summary: "Matt writes letters to his lost love Karen Page, remembering his first days in costume.",
+    synopsis:
+      "Told through letters Matt writes to Karen Page, Yellow revisits his earliest adventures in the original yellow costume: the death of his father, his first fights, and falling in love. A warm, bittersweet look back.",
+  },
+  {
+    title: "Underboss",
+    author: "Brian Michael Bendis & Alex Maleev",
+    year: 2001,
+    issues: "Daredevil vol. 2 #26–31",
+    language: "English",
+    cover: "assets/images/stories/underboss.jpg",
+    summary: "A gangland power struggle ends with Daredevil's identity exposed to the world.",
+    synopsis:
+      "A crime-noir story told like a street-level drama. A plot against the Kingpin spirals out of control, and in the fallout Matt's secret identity is leaked to the press, changing his life for years to come.",
+  },
+  {
+    title: "Shadowland",
+    author: "Andy Diggle & Billy Tan",
+    year: 2010,
+    issues: "5 issues",
+    language: "English",
+    cover: "assets/images/stories/shadowland.jpg",
+    summary: "Matt takes control of the Hand to save his city — and starts to lose himself.",
+    synopsis:
+      "As leader of the ninja clan the Hand, Matt builds a fortress in Hell's Kitchen and tries to control crime from the inside. But the darkness he hoped to command starts to command him, and his closest allies have to stop him.",
+  },
+];
+
+const storiesGrid = document.querySelector(".stories__grid");
+const storyModal = document.querySelector(".story-modal");
+
+// build one card for a story object
+function createStoryCard(story, index) {
+  const card = document.createElement("li");
+  card.className = "story-card";
+  card.style.setProperty("--delay", `${(index % 3) * 0.12}s`);
+
+  card.innerHTML = `
+    <div class="story-card__cover">
+      <img src="${story.cover}" alt="${story.title} cover" loading="lazy">
+      <span class="story-card__badge">${story.language}</span>
+    </div>
+    <div class="story-card__body">
+      <p class="story-card__year">${story.year}</p>
+      <h3 class="story-card__title">${story.title}</h3>
+      <p class="story-card__author">${story.author}</p>
+      <p class="story-card__summary">${story.summary}</p>
+      <button class="story-card__button" type="button" data-index="${index}">View details</button>
+    </div>
+  `;
+
+  // if the cover image is missing, remove it so the red placeholder shows
+  card.querySelector("img").addEventListener("error", (event) => event.target.remove());
+
+  return card;
+}
+
+function renderStoryCards() {
+  storiesGrid.append(...stories.map(createStoryCard));
+}
+
+// fill the popup with one story's details and open it
+function openStoryModal(story) {
+  const cover = storyModal.querySelector(".story-modal__cover img");
+  cover.style.visibility = "visible";
+  cover.onerror = () => (cover.style.visibility = "hidden"); // missing image → show the red placeholder
+  cover.src = story.cover;
+  cover.alt = `${story.title} cover`;
+
+  storyModal.querySelector(".story-modal__meta").textContent = `${story.year} · ${story.issues}`;
+  storyModal.querySelector(".story-modal__title").textContent = story.title;
+  storyModal.querySelector(".story-modal__author").textContent = story.author;
+  storyModal.querySelector(".story-modal__synopsis").textContent = story.synopsis;
+  storyModal.querySelector(".story-modal__tags").innerHTML = `
+    <li>${story.language}</li>
+    <li>${story.issues}</li>
+  `;
+
+  storyModal.showModal();
+}
+
+// one listener for every card's button
+storiesGrid.addEventListener("click", (event) => {
+  const button = event.target.closest(".story-card__button");
+  if (button) openStoryModal(stories[button.dataset.index]);
+});
+
+// close with the ✕ button or by clicking the dark area outside the popup (Esc works by default)
+storyModal.querySelector(".story-modal__close").addEventListener("click", () => storyModal.close());
+storyModal.addEventListener("click", (event) => {
+  if (event.target === storyModal) storyModal.close();
+});
+
+// reveal cards as they scroll into view
+const cardObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      cardObserver.unobserve(entry.target);
+    });
+  },
+  { threshold: 0.2 }
+);
+
+renderStoryCards();
+storiesGrid.querySelectorAll(".story-card").forEach((card) => cardObserver.observe(card));
+
+
+
+
+
+
+
+
 /* ---------- Scroll loop ---------- */
 
 
@@ -240,6 +433,7 @@ let ticking = false;
 function renderAll() {
   renderHero();
   renderAbout();
+  renderComic();
 }
 
 function onScroll() {
